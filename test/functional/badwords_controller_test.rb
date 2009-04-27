@@ -12,15 +12,15 @@ class BadwordsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "should create badwords" do
-    assert_difference('Badwords.count') do
-      post :create, :badwords => { }
+  test "should create badword" do
+    assert_difference('Badword.count') do
+      post :create, :badword => { }
     end
 
-    assert_redirected_to badwords_path(assigns(:badwords))
+    assert_redirected_to badword_path(assigns(:badword))
   end
 
-  test "should show badwords" do
+  test "should show badword" do
     get :show, :id => badwords(:one).id
     assert_response :success
   end
@@ -30,13 +30,13 @@ class BadwordsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "should update badwords" do
-    put :update, :id => badwords(:one).id, :badwords => { }
-    assert_redirected_to badwords_path(assigns(:badwords))
+  test "should update badword" do
+    put :update, :id => badwords(:one).id, :badword => { }
+    assert_redirected_to badword_path(assigns(:badword))
   end
 
-  test "should destroy badwords" do
-    assert_difference('Badwords.count', -1) do
+  test "should destroy badword" do
+    assert_difference('Badword.count', -1) do
       delete :destroy, :id => badwords(:one).id
     end
 

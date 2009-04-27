@@ -2,7 +2,7 @@ class BadwordsController < ApplicationController
   # GET /badwords
   # GET /badwords.xml
   def index
-    @badwords = Badwords.find(:all)
+    @badwords = Badword.find(:all)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -13,43 +13,43 @@ class BadwordsController < ApplicationController
   # GET /badwords/1
   # GET /badwords/1.xml
   def show
-    @badwords = Badwords.find(params[:id])
+    @badword = Badword.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
-      format.xml  { render :xml => @badwords }
+      format.xml  { render :xml => @badword }
     end
   end
 
   # GET /badwords/new
   # GET /badwords/new.xml
   def new
-    @badwords = Badwords.new
+    @badword = Badword.new
 
     respond_to do |format|
       format.html # new.html.erb
-      format.xml  { render :xml => @badwords }
+      format.xml  { render :xml => @badword }
     end
   end
 
   # GET /badwords/1/edit
   def edit
-    @badwords = Badwords.find(params[:id])
+    @badword = Badword.find(params[:id])
   end
 
   # POST /badwords
   # POST /badwords.xml
   def create
-    @badwords = Badwords.new(params[:badwords])
+    @badword = Badword.new(params[:badword])
 
     respond_to do |format|
-      if @badwords.save
-        flash[:notice] = 'Badwords was successfully created.'
-        format.html { redirect_to(@badwords) }
-        format.xml  { render :xml => @badwords, :status => :created, :location => @badwords }
+      if @badword.save
+        flash[:notice] = 'Badword was successfully created.'
+        format.html { redirect_to(@badword) }
+        format.xml  { render :xml => @badword, :status => :created, :location => @badword }
       else
         format.html { render :action => "new" }
-        format.xml  { render :xml => @badwords.errors, :status => :unprocessable_entity }
+        format.xml  { render :xml => @badword.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -57,16 +57,16 @@ class BadwordsController < ApplicationController
   # PUT /badwords/1
   # PUT /badwords/1.xml
   def update
-    @badwords = Badwords.find(params[:id])
+    @badword = Badword.find(params[:id])
 
     respond_to do |format|
-      if @badwords.update_attributes(params[:badwords])
-        flash[:notice] = 'Badwords was successfully updated.'
-        format.html { redirect_to(@badwords) }
+      if @badword.update_attributes(params[:badword])
+        flash[:notice] = 'Badword was successfully updated.'
+        format.html { redirect_to(@badword) }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
-        format.xml  { render :xml => @badwords.errors, :status => :unprocessable_entity }
+        format.xml  { render :xml => @badword.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -74,8 +74,8 @@ class BadwordsController < ApplicationController
   # DELETE /badwords/1
   # DELETE /badwords/1.xml
   def destroy
-    @badwords = Badwords.find(params[:id])
-    @badwords.destroy
+    @badword = Badword.find(params[:id])
+    @badword.destroy
 
     respond_to do |format|
       format.html { redirect_to(badwords_url) }
