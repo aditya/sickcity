@@ -5,25 +5,37 @@ namespace "sickcity" do
 
   desc %{Clean noisy tweets}
   task :clean_noisy_tweets => :environment do |t|
-    Mention.find(:all).each do |m| 
-      # This is necessary due to some weirdness where the class methods aren't
-      # be loaded or SOMETHING.
-      puts m
+    count = 0
+    Mention.find(:all, :conditions => 'message is NOT NULL').each do |m| 
+      destroy = false
+      # Commenting out tweet-fetching code for now
+     #puts m
+     #tweet_id = m.link.split('/').last
+     #twitter_url = "http://twitter.com/statuses/show/#{tweet_id}.xml" 
+     #puts twitter_url
+     #doc = Curl::Easy.perform(twitter_url)
+     #parsed_doc = Nokogiri.parse(doc.body_str)
+     #puts parsed_doc
 
-      tweet_id = m.link.split('/').last
-      twitter_url = "http://twitter.com/statuses/show/#{tweet_id}.xml" 
-      doc = Curl::Easy.perform(twitter_url)
-      parsed_doc = Nokogiri.parse(doc.body_str)
-
-      text = parsed_doc.search("text").inner_html
-      if text =~ /RT/ || text =~ /http/ || text =~ /\@/ || (text =~ /\#/ && !(text =~ / \#sickcity/))
-        # Need to run a good test before we start destroying. Make sure to
-        # backup the DB too.
-        
-        # m.destroy
-
-        puts text
+     #text = parsed_doc.search("text").inner_html
+      text = m.message
+      if text =~ /^RT\s/ || text =~ /http/ || text =~ /^\@/ || (text =~ /\s\#/ && !(text =~ /\s\#sickcity/))
+        destroy = true
       end
+
+      if !destroy
+        Badword.all.each do |badword|
+          if text =~ /#{badword}/
+            destroy = true
+          end
+          break if destroy == true
+        end
+      end
+
+      count += 1 if destroy
+      # Not ready to scrub yet
+      # m.destroy if destroy
     end
+  puts "Count: #{count}"
   end
 end

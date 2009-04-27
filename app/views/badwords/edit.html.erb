@@ -1,0 +1,12 @@
+<h1>Editing badwords</h1>
+
+<% form_for(@badwords) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.submit "Update" %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @badwords %> |
+<%= link_to 'Back', badwords_path %>
